@@ -24,12 +24,14 @@ This project is a Ethereum baesd smart contract coded in soldity for any Token o
 * Now in "Deployed Section" :
    * Use the function 'mint' to create new tokens(and see how require and assert is working):
      * Enter an address and value.
-     * Add value 0 and it will trigger the require statement: require(_value > 0, "Mint value must be greater than zero");
+     * Add value 0 and it will trigger the require statement:
+        require(_value > 0, "Mint value must be greater than zero");
      * On terminal we wil get error: "Mint value must be greater than zero"
      * Also assert() statement here make sure that the balances and total supply are correctly updated
      * Similarly require and assert statement is also used in burn function
    * Use the function 'burn' to see the use of revert function:
-     * If the value of balances will get negative the following condition will be called: // If balance goes negative (shouldn't happen), revert explicitly
+     * If the value of balances will get negative the following condition will be called:
+        // If balance goes negative (shouldn't happen), revert explicitly
         if (balances[_address] < 0) {
             revert("Balance cannot be negative");
         }
