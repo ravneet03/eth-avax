@@ -13,7 +13,7 @@ This project is a Ethereum baesd smart contract coded in soldity for any Token o
 ### Installing
 
 * Open [Remix IDE](https://remix.ethereum.org/)
-* Create a new file named `assessment1.sol` and paste the code given in this repository (assessment1).
+* Create a new file named `assesment_ethavax.sol` and paste the code given in this repository (assesment_ethavax).
 * Copy and paste the code from the file to the online editor(remix) or any compiler of your choice.
 
 ### Executing program (Remix editor)
