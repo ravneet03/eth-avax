@@ -23,11 +23,12 @@ This project is a Ethereum baesd smart contract coded in soldity for any Token o
 * Go to Deploy & run transactions in the left side panel and Deploy the program
 * Now in "Deployed Section" :
    * Use the function 'createProposal' to create new proposal
-     * Enter an proposal .
+     * Here require statement is used to make sure that proposal cannot be empty.
    * Use the function 'vote' to vote and here if an account tries to vote multiple time revert 
       is called. 
-     * Similarly require and assert statement is also used in burn function.
+     * Here revert and assert statement is also used in vote function.
    * Use the function 'tallyVotes' to taally the vote for future results.
+     * Here reuire is used to make sure that proposal id is valid or not.
 
 ## Help
 For any issues, you can refer to the Remix documentation or common Ethereum development resources.
