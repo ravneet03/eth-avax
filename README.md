@@ -22,21 +22,12 @@ This project is a Ethereum baesd smart contract coded in soldity for any Token o
 * Go to solidity compiler in the left side panel and compile the program
 * Go to Deploy & run transactions in the left side panel and Deploy the program
 * Now in "Deployed Section" :
-   * Use the function 'mint' to create new tokens(and see how require and assert is working):
-     * Enter an address and value.
-     * Add value 0 and it will trigger the require statement:
-        require(_value > 0, "Mint value must be greater than zero");
-     * On terminal we wil get error: "Mint value must be greater than zero"
-     * Also assert() statement here make sure that the balances and total supply are correctly updated
-     * Similarly require and assert statement is also used in burn function
-   * Use the function 'burn' to see the use of revert function:
-     * If the value of balances will get negative the following condition will be called:
-        // If balance goes negative (shouldn't happen), revert explicitly
-        if (balances[_address] < 0) {
-            revert("Balance cannot be negative");
-        }
-     * This will make sure that the value of balances will always positive .
-     * If it is negative we will get error on terminal with statement: "Balance cannot be negative". 
+   * Use the function 'createProposal' to create new proposal
+     * Enter an proposal .
+   * Use the function 'vote' to vote and here if an account tries to vote multiple time revert 
+      is called. 
+     * Similarly require and assert statement is also used in burn function.
+   * Use the function 'tallyVotes' to taally the vote for future results.
 
 ## Help
 For any issues, you can refer to the Remix documentation or common Ethereum development resources.
