@@ -1,47 +1,59 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.18;
 
+contract DecentralizedVoting {
+    address public owner;
+    uint public proposalCount;
 
+    mapping(uint => string) public proposals;
+    mapping(uint => uint) public proposalVotes;
+    mapping(address => mapping(uint => bool)) public hasVoted;
 
-contract MyToken {
+    event ProposalCreated(uint proposalId, string description);
+    event Voted(uint proposalId, address voter);
+    event VotingResult(uint proposalId, string description, uint votes);
 
-    // public variables here
-    string public tokenName = "SLOY";
-    string public tokenAbbrv = "SLY";
-    uint public totSupply = 0;
-
-    // mapping variable here
-    mapping (address => uint) public balances;
-
-    // mint function
-    function mint(address _address, uint _value) public {
-        // Ensure that the value to be minted is greater than zero
-        require(_value > 0, "Mint value must be greater than zero");
-        
-        totSupply += _value;
-        balances[_address] += _value;
-        
-        // Assert that the total supply and balance are correctly updated
-        assert(totSupply >= balances[_address]);
+    constructor() {
+        owner = msg.sender;
     }
 
-    // burn function
-    function burn(address _address, uint _value) public {
-        // Check if the sender has enough balance to burn
-        require(balances[_address] >= _value, "Insufficient balance to burn");
-        
-        // Ensure that the value to be burned is greater than zero
-        require(_value > 0, "Burn value must be greater than zero");
-        
-        totSupply -= _value;
-        balances[_address] -= _value;
-        
-        // Assert that the total supply and balance are correctly updated
-        assert(totSupply >= 0);
-        
-        // If balance goes negative (shouldn't happen), revert explicitly
-        if (balances[_address] < 0) {
-            revert("Balance cannot be negative");
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Only owner can perform this action");
+        _;
+    }
+
+    function createProposal(string memory _description) public onlyOwner {
+        require(bytes(_description).length > 0, "Proposal description cannot be empty");
+        proposalCount++;
+        proposals[proposalCount] = _description;
+        proposalVotes[proposalCount] = 0;
+        emit ProposalCreated(proposalCount, _description);
+    }
+
+    function vote(uint _proposalId) public {
+        if (_proposalId == 0 || _proposalId > proposalCount) {
+            revert("Invalid proposal ID");
         }
+        if (hasVoted[msg.sender][_proposalId]) {
+            revert("You have already voted for this proposal");
+        }
+
+        uint previousVotes = proposalVotes[_proposalId];
+
+        hasVoted[msg.sender][_proposalId] = true;
+        proposalVotes[_proposalId]++;
+
+        assert(proposalVotes[_proposalId] == previousVotes + 1);
+
+        emit Voted(_proposalId, msg.sender);
+    }
+
+    function tallyVotes(uint _proposalId) public onlyOwner {
+        require(_proposalId > 0 && _proposalId <= proposalCount, "Invalid proposal ID");
+
+        string memory description = proposals[_proposalId];
+        uint votes = proposalVotes[_proposalId];
+
+        emit VotingResult(_proposalId, description, votes);
     }
 }
