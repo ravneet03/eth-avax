@@ -7,7 +7,7 @@ The project involves
 
 ## Description
 
-This project is a Ethereum baesd smart contract coded in soldity for any Token of your choice . It shows the use of reqire(), assert(), revert() statements
+This project is a Ethereum baesd smart contract coded in soldity. It shows the use of reqire(), assert(), revert() statements
 ## Getting Started
 
 ### Installing
